@@ -19,15 +19,18 @@ async function getimgaw(array,count){
     return errsrc;
 }
 async function modaltext(array){
-    let text = modal.children[0].children
-    console.log(text)
+    console.log(JSON.stringify(array, null, 2));
+    let text = modal.children[0].querySelectorAll("img, p");
     console.log(array)
-    text[1].innerHTML = array.name
+    text[2].innerHTML = array.name
+    text[3].innerHTML = array.dates.start.localDate
+    text[4].innerHTML = array.dates.start.localTime + " local time"
     getimgaw(array,2).then(rez=>{
         console.log(typeof rez)
         if(!rez.massenge){
             console.log(rez.url)
             text[0].src = rez.url
+            text[1].src = rez.url
         }
     })
 }

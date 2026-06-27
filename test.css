@@ -1,7 +1,9 @@
 
 .cards{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px 10px;
     position: absolute;
 }
 .card{
@@ -12,7 +14,7 @@
     background-color: aqua;
     align-items: center;
 }
-.card-img{
+.card-img, .modal-img-big{
     width: 180px;
     height: 240px;
     border-radius: 35px 0 35px 0;
@@ -47,15 +49,60 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 5px;
     background-color: aqua;
     width: 500px;
     height: 700px;
+    overflow-y: scroll ;
+}
+.modal-img-big{
+    position: fixed;
+    top: 200px;
+    margin-left: -200px;
+    width: calc(180px * 1.25);
+    height: calc(240px * 1.25);
+}
+.modal-title{
+    font-size: 20px;
+    font-weight: bold;
+}
+.modal > p,h1{
+    margin-left: 250px;
+}
+.modal > h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: deeppink;
+}
 
-}.modal-img{
+.modal-img{
+    position: fixed;
+    bottom: 550px;
+    margin-left: 0;
     width: 90px;
     height: 90px;
     border-radius: 50%;
     object-fit: cover;
     background-color: red;
+    flex-shrink: 0;
+
  }
+.modal-title{
+    font-size: 20px;
+    font-weight: bold;
+    width: 200px;
+    text-align: center;
+ }
+
+.modal-close{
+    width: 100px;
+    height: 30px;
+    background-color: red;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    position: relative;
+    bottom: 350px;
+    right: 250px;
+}
