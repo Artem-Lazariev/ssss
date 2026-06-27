@@ -1,50 +1,73 @@
-
-.cards{
+/* --- СЕТКА КАРТОЧЕК --- */
+.cards {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 20px 10px;
-    position: absolute;
+    gap: 20px 10px; /* Контейнер имеет высоту, обсервер работает чётко */
+    width: 100%;
 }
-.card{
+
+/* --- ОДНОТИПНЫЕ КАРТОЧКИ --- */
+.card {
     display: flex;
     flex-direction: column;
     width: 200px;
     height: 350px;
     background-color: aqua;
     align-items: center;
+    box-sizing: border-box;
+    padding: 10px;
 }
-.card-img, .modal-img-big{
+
+/* Мертвая фиксация размеров картинок и лоадеров (все дубли объединены сюда) */
+.card-img, .card-img-loading, .card-img-error, .modal-img-big {
     width: 180px;
     height: 240px;
     border-radius: 35px 0 35px 0;
-    background-color: red;
     object-fit: cover;
+    flex-shrink: 0;
 }
-.card-title{
+
+/* Состояние загрузки (красный фон) */
+.card-img-loading {
+    background-color: red;
+}
+
+/* Текст карточки */
+.card-title {
     font-size: 20px;
     font-weight: bold;
+    text-align: center;
 }
-.card-img-error{
-    width: 180px;
-    height: 240px;
+
+/* Блок ошибки (встает ровно вместо картинки) */
+.card-img-error {
     background-color: red;
     color: white;
     font-weight: bold;
     font-size: 20px;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
-.overlay{
+
+/* --- МОДАЛЬНОЕ ОКНО (ЗАТЕМНЕНИЕ) --- */
+.overlay {
     background-color: rgba(0, 0, 0, 0.18);
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.modal{
-    position:fixed!important;
+
+/* Внутрянка модалки */
+.modal {
+    position: fixed !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,29 +76,21 @@
     background-color: aqua;
     width: 500px;
     height: 700px;
-    overflow-y: scroll ;
+    overflow-y: scroll;
 }
-.modal-img-big{
+
+/* Большая картинка в модалке (чуть увеличенная через calc) */
+.modal-img-big {
     position: fixed;
     top: 200px;
     margin-left: -200px;
     width: calc(180px * 1.25);
     height: calc(240px * 1.25);
-}
-.modal-title{
-    font-size: 20px;
-    font-weight: bold;
-}
-.modal > p,h1{
-    margin-left: 250px;
-}
-.modal > h1 {
-    font-size: 30px;
-    font-weight: bold;
-    color: deeppink;
+    background-color: red;
 }
 
-.modal-img{
+/* Круглая мелкая аватарка в модалке */
+.modal-img {
     position: fixed;
     bottom: 550px;
     margin-left: 0;
@@ -85,16 +100,28 @@
     object-fit: cover;
     background-color: red;
     flex-shrink: 0;
+}
 
- }
-.modal-title{
+/* Тексты внутри модалки */
+.modal-title {
     font-size: 20px;
     font-weight: bold;
     width: 200px;
     text-align: center;
- }
+}
 
-.modal-close{
+.modal > p, h1 {
+    margin-left: 250px;
+}
+
+.modal > h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: deeppink;
+}
+
+/* Кнопка закрытия */
+.modal-close {
     width: 100px;
     height: 30px;
     background-color: red;
@@ -104,5 +131,6 @@
     font-weight: bold;
     position: relative;
     bottom: 350px;
-    right: 250px;
+    right: -150px;
+    cursor: pointer;
 }
