@@ -1,4 +1,4 @@
-import {data} from './api.js';
+import {data} from './api.js';//
 if (typeof data !== "object") throw new Error("Data is not an object");
 let cards = document.getElementById( 'cards')
 let modal = document.getElementById( 'overlay' );
