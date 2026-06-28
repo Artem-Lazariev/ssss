@@ -1,7 +1,5 @@
-import { data as dd } from './api.js';
-
-// Оставляем ссылку на объект. Когда api.js изменит внутренности data,
-// мы увидим это и здесь, так как объекты передаются по ссылке.
+// Импортируем и данные, и функцию загрузки из api.js
+import { data as dd, loadNextPage } from './api.js';
 let data = dd;
 
 if (typeof data !== "object") throw new Error("Data is not an object");
@@ -47,7 +45,7 @@ const observer = new IntersectionObserver(async (entries, obs) => {
             let img = entry.target;
             obs.unobserve(img);
 
-            const eventIndex = img.dataset.index;
+            const eventIndex = Number(img.classList[1].replace("img_", ""));
             const currentEvent = data["_embedded"].events[eventIndex];
 
             try {
@@ -83,23 +81,21 @@ cards.addEventListener('click', e => {
 let counter = 0;
 
 function gen() {
-    // ВАЖНО: Больше НЕ пишем cards.innerHTML = "" (не удаляем старое)
-    // ВАЖНО: Больше НЕ сбрасываем counter = 0
-
     const allEvents = data["_embedded"].events;
 
-    // Запускаем цикл только для НОВЫХ элементов, которые появились после counter
+    // ВАЖНО: Стартуем цикл строго с counter (например, с 20-го элемента),
+    // чтобы не перерисовывать старые карточки заново!
     for (let index = counter; index < allEvents.length; index++) {
-        const i = allEvents[index]; // Текущий новый ивент
+        const i = allEvents[index]; // Текущий ивент
 
         const card = document.createElement('div');
         card.classList.add('card');
-        card.id = "card_" + counter; // Уникальный ID (продолжает расти: 20, 21, 22...)
+        card.id = "card_" + counter;
         cards.append(card);
 
         let img = document.createElement('img');
         img.classList.add('card-img');
-        img.dataset.index = counter; // Индекс строго соответствует позиции в массиве data
+        img.classList.add("img_"+counter);
         img.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>";
         card.append(img);
 
@@ -114,30 +110,22 @@ function gen() {
 
         observer.observe(img);
 
-        counter++; // Увеличиваем счетчик для следующей карточки
+        counter++; // Счетчик растет дальше (20, 21, 22...)
     }
 }
 
-// Первая отрисовка при старте страницы (отрисует первые 20 карточек)
+// Первая отрисовка 1-й страницы при старте сайта
 gen();
 
-// Клик по кнопке пагинации
-document.getElementById("btn").addEventListener("click", () => {
-    document.querySelector("head").id = "1";
-});
+// НАСТОЯЩИЙ КЛИК ПО КНОПКЕ БЕЗ ТАЙМЕРОВ:
+document.getElementById("btn").addEventListener("click", async () => {
 
-// Интервал, который ждет команду на дорисовывание
-setInterval(() => {
-    let signal = document.querySelector("body").id;
+    // 1. Вызываем функцию из api.js и ЖДЕМ (await), пока fetch докачает данные
+    // и запушит их в общую коробку data.
+    let success = await loadNextPage();
 
-    if (signal === "need-render") {
-        console.log("Добавляю новые карточки в конец ленты...");
-
-        // Вызываем gen(). Так как counter равен, например, 20,
-        // функция проигнорирует первые 20 карточек и создаст только новые с 21 по 40.
+    // 2. Как только всё успешно скачалось — МГНОВЕННО запускаем отрисовку новых карточек
+    if (success) {
         gen();
-
-        // Сбрасываем сигнал
-        document.querySelector("body").id = "";
     }
-}, 1000);
+});
