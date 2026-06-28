@@ -107,19 +107,27 @@
     font-size: 20px;
     font-weight: bold;
     width: 200px;
-    text-align: center;
 }
 
-.modal > p, h1 {
+.modal > p, h1,button {
     margin-left: 250px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    width: 200px;
 }
 
 .modal > h1 {
+
     font-size: 30px;
     font-weight: bold;
     color: deeppink;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
-
+.modal-price {
+    font-size: 10px;
+    font-weight: bold;
+}
 /* Кнопка закрытия */
 .modal-close {
     width: 100px;
@@ -129,8 +137,9 @@
     border: none;
     color: white;
     font-weight: bold;
-    position: relative;
-    bottom: 350px;
-    right: -150px;
+    position: fixed;
+    top: 50px;
+    right: 425px;
     cursor: pointer;
+
 }
