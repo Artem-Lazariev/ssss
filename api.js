@@ -1,3 +1,4 @@
+
 let i = 1;
 
 // Первая загрузка (1-я страница) при старте сайта
@@ -6,7 +7,7 @@ let data = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?ap
     .catch(err => { console.error("Ошибка при первой загрузке:", err); });
 
 // ЭКСПОРТ: отдаем наружу и объект с данными, и функцию загрузки
-export { data, loadNextPage };
+export { data, loadNextPage, filterr };
 
 async function loadNextPage() {
     i++;
@@ -35,4 +36,13 @@ async function loadNextPage() {
         console.error("Ошибка при загрузке страницы " + i, err);
         return false;
     }
+}
+
+async function filterr(key, value) {
+    let f = value
+
+    const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=0WWL1P2bMiHay23k871w1SovwR8BsLG9&page=${i}&${key}=${f}`;
+    let response = await fetch(url).then(res => res.json());
+    console.log(response)
+    return response
 }

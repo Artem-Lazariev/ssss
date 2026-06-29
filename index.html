@@ -5,8 +5,15 @@
     <title>Title</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="test.css">
+    <script src="https://unpkg.com/i18n-iso-countries@7.11.0/dist/index.js"></script>
+    <script src="https://unpkg.com/i18n-iso-countries@7.11.0/langs/en.json" type="json" id="en-locale"></script>
 </head>
+
 <body id="">
+<div class="hero">
+    <input type="text" id="search" placeholder="search">
+    <input type="text" id="search-country" placeholder="country use full name">
+</div>
 <div class="cards" id="cards">
 </div>
 <div style="display: none" class="overlay" id="overlay">
@@ -34,7 +41,7 @@
         <button class="modal-close" id="modal-close">close</button>
     </div>
 </div>
-<button id="btn">click</button>
+<button id="btn" class="more">LOAD MORE</button>
 </body>
 </html>
 <script src="

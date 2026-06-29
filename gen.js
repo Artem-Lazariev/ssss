@@ -1,5 +1,5 @@
 // Импортируем и данные, и функцию загрузки из api.js
-import { data as dd, loadNextPage } from './api.js';
+import { data as dd, loadNextPage,filterr } from './api.js';
 let data = dd;
 
 if (typeof data !== "object") throw new Error("Data is not an object");
@@ -129,3 +129,35 @@ document.getElementById("btn").addEventListener("click", async () => {
         gen();
     }
 });
+document.getElementById("search").addEventListener("change", async () => {
+    console.log("s")
+    counter = 0;
+    cards.innerHTML = "";
+    let errorOrNot = await filterr("keyword",document.getElementById("search").value)
+    let names = []
+    let objects = []
+    if (!errorOrNot.message){
+        console.log(typeof errorOrNot["_embedded"]["events"])// object
+        for (let i of errorOrNot["_embedded"]["events"]){
+            if (!names.includes(i.name)){
+                names.push(i.name)
+                objects.push(i)
+            }
+        }
+        console.log(objects)
+        data = {"_embedded":{"events":objects}}
+        gen() //render dont work why
+    }
+})
+document.getElementById("search-country").addEventListener("change", async () => {
+    console.log("c")
+    counter = 0;
+    cards.innerHTML = "";
+    let errorOrNot = await filterr("country",document.getElementById("search").value);
+    if (!errorOrNot.masenge){
+        data = errorOrNot;
+        gen();
+    }
+
+
+})

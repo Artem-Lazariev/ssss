@@ -1,4 +1,26 @@
 /* --- СЕТКА КАРТОЧЕК --- */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 500px;
+    background-color: aqua;
+    gap: 20px;
+}
+
+.hero > * {
+    margin-top: 300px;
+    box-shadow: 100px 10px 10px 10px rgb(199, 0, 255);
+}
+
 .cards {
     display: flex;
     flex-direction: row;
@@ -109,8 +131,8 @@
     width: 200px;
 }
 
-.modal-left{
-    margin-top:  150px;
+.modal-left {
+    margin-top: 150px;
     margin-left: 250px;
     word-break: break-word;
     overflow-wrap: break-word;
@@ -121,6 +143,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .modal-left > h1 {
     font-size: 30px;
     font-weight: bold;
@@ -128,6 +151,7 @@
     word-break: break-word;
     overflow-wrap: break-word;
 }
+
 .modal-left > button {
     width: 100px;
     height: 30px;
@@ -136,10 +160,12 @@
     border: none;
     color: white;
 }
+
 .modal-price {
     font-size: 10px;
     font-weight: bold;
 }
+
 /* Кнопка закрытия */
 .modal-close {
     width: 100px;
@@ -149,9 +175,25 @@
     border: none;
     color: white;
     font-weight: bold;
-    position: fixed;
-    top: 50px;
-    right: 425px;
+    position: relative;
+
     cursor: pointer;
 
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.more {
+    width: 200px;
+    height: 90px;
+    background-color: #00000000;
+    border-radius: 35px 0px 35px 0px;
+    border: 5px solid #a700ff;
+    color: #a700ff;
+    font-weight: bold;
+    cursor: pointer;
 }
