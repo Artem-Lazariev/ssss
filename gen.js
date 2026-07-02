@@ -2,7 +2,18 @@
 import { data as dd, loadNextPage,filterr } from './api.js';
 let data = dd;
 
-if (typeof data !== "object") throw new Error("Data is not an object");
+if (typeof data !== "object") {
+    console.log(data);
+    if (!data) {
+
+
+        let dataerror = await fetch("https://app.ticketmaster.com/discovery/v2/events.json?apikey=0WWL1P2bMiHay23k871w1SovwR8BsLG9&countryCode=US").then(res => res).catch(err => err);
+        document.getElementById("error").innerHTML = `error ${dataerror.message}`;
+    }else {
+        document.getElementById("error").style.display = "none";
+    }
+}
+
 let cards = document.getElementById('cards');
 let modal = document.getElementById('overlay');
 let modalc = document.getElementById('modal-close');

@@ -4,7 +4,7 @@ let i = 1;
 // Первая загрузка (1-я страница) при старте сайта
 let data = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=0WWL1P2bMiHay23k871w1SovwR8BsLG9&countryCode=US&page=${i}`)
     .then(res => res.json())
-    .catch(err => { console.error("Ошибка при первой загрузке:", err); });
+    .catch(err => { console.log(err) });
 
 // ЭКСПОРТ: отдаем наружу и объект с данными, и функцию загрузки
 export { data, loadNextPage, filterr };
